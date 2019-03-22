@@ -14,6 +14,7 @@
     </main>
     <footer></footer>
     <script>
+        // 1.初始化数据
             var keys = {
                 '0':{0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p',length:10},
                 '1':{0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l',length:9},
@@ -27,39 +28,65 @@
             if(hashInLocalStorage){
                 hash = hashInLocalStorage
             }
+            // 2.生成键盘
             // 遍历keys，生成kbd标签
-            index=0
+            var index=0
               while(index<keys.length){//0 1 2
-                div = document.createElement('div')
+                var div = document.createElement('div')
+                div.className ='row'
                 mainxxx.appendChild(div)
-                row=keys.index 
-                row=keys[index]  //第1个数组  第2个数组 第3个数组 
+                var row=keys[index]  //第1个数组  第2个数组 第3个数组 
                 console.log(row)
-                index2=0
+                var index2=0
                 while(index2<row.length){// 0-9 0-8 0-6
-                     kbdxxx =document.createElement('kbd')
-                     kbdxxx.textContent=row[index2]
+                    var kbdxxx =document.createElement('kbd')
+                    var span =document.createElement('span')
+                     span.className = 'text'
+                     span.textContent=row[index2]
+                     kbdxxx.appendChild(span)
+                     kbdxxx.className ='key'
                      div.appendChild(kbdxxx)
-                     buttonx =document.createElement('button')
+                     var buttonx =document.createElement('button')
                      buttonx.textContent= "e"
                      buttonx.id = row[index2]
+                     var img=document.createElement('img')
+                     if(hash[row[index2]]){
+                        img.src='http://'+hash[row[index2]] + '/favicon.ico'
+                     }
+                     else{
+                         img.src='//i.loli.net/2017/11/10/5a05afbc5e183.png'
+                     }
+                     img.onerror = function(xxx){
+                         console.log('下载失败')
+                         xxx.target.src ='//i.loli.net/2017/11/10/5a05afbc5e183.png'
+                     }
                      buttonx.onclick=function(x){
                         //  x['target']['id']就是用户点击的元素
+                        var button2=x['target']
+                        var img2 =button2.previousSibling
+                        var key =button2['id']
                          console.log(x['target']['id'])//q w e r t
-                         key = x['target']['id']//qq.com
-                         y=prompt('给我一个网址')//hash变更
+                         var key = x['target']['id']//qq.com
+                         var y=prompt('给我一个网址')//hash变更
                          hash[key]=y
+                         img2.src='http://'+y+'/favicon.ico'
+                         img2.onerror = function(xxx){
+                         console.log('下载失败')
+                         xxx.target.src ='//i.loli.net/2017/11/10/5a05afbc5e183.png'
+                     }
                          localStorage.setItem('z',JSON.stringify(hash))
                          console.log(hash)
                      }
+                     kbdxxx.appendChild(img)
                      kbdxxx.appendChild(buttonx)
                      index2=index2+1
                 }
                 index=index+1
             }
+            //3. 监听键盘
             document.onkeypress=function(x){
-                key=x['key']
-                website=hash[key]
+                var key=x['key']
+                var website=hash[key]
                // location.href='http://'+website 打开网页
                window.open('http://'+ website,'_blank')
             }
