@@ -1,4 +1,8 @@
 *{margin: 0;padding: 0}
+body{
+    background: grey url(./1.jpg) no-repeat center center;
+    background-size:cover;
+}
 a{text-decoration: none;}
 kbd{border: 1px solid red;
     width: 4em;
@@ -49,9 +53,7 @@ kbd:hover >button{
 #mainxxx>div:nth-child(2){margin-left: 2em}
 #mainxxx>div:nth-child(3){margin-left: 2em}
 #mainxxx{display: inline-block}
-body{
-    background: grey url(./1.jpg) no-repeat center center;
-}
+
 main{text-align: center;
     height: 100vh;
     display: flex;
